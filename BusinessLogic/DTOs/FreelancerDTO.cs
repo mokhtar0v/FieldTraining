@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Models
+namespace BusinessLogic.DTOs
 {
-    public class Customer : BaseEntity
+    public class FreelancerDTO
     {
+        public int ID { get; set; }
         public string Name { get; set; } = null!; // Non-nullable reference type, must be initialized
         public string Email { get; set; } = null!;
         public int PhoneNum { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public virtual ICollection<Conversation> Conversations { get; set; } = new List<Conversation>();
-        public virtual ICollection<Job> Jobs { get; set; } = new List<Job>();
-
-
+        public string Skills { get; set; } = null!; // Non-nullable reference type, must be initialized
     }
 }

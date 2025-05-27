@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.DTOs
 {
-    class CustomerDTO
+    public class CustomerDTO
     {
         public int ID { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
+        public string Name { get; set; } = null!; // Non-nullable reference type, must be initialized
+        public string Email { get; set; } = null!;
         public int PhoneNum { get; set; }
         public DateTime DateOfBirth { get; set; }
         // Additional properties can be added as needed

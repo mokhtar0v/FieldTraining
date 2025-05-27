@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using DataAccess.Contexts;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Classes;
+using DataAccess.Repositories.Interfaces;
 
 namespace HireSphere
 {
