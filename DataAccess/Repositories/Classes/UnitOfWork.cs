@@ -15,6 +15,7 @@ namespace DataAccess.Repositories.Classes
         private readonly Lazy<IConversationRepository> _conversationRepository;
         private readonly Lazy<IMessageRepository> _messageRepository;
         private readonly Lazy<IJobRepository> _jobRepository;
+        private readonly Lazy<IJobApplicationRepository> _jobApplicationRepository;
 
         private readonly AppDbContext _appDbContext;
 
@@ -26,6 +27,7 @@ namespace DataAccess.Repositories.Classes
             _conversationRepository = new Lazy<IConversationRepository>(() => new ConversationRepository(_appDbContext));
             _messageRepository = new Lazy<IMessageRepository>(() => new MessageRepository(_appDbContext));
             _jobRepository = new Lazy<IJobRepository>(() => new JobRepository(_appDbContext));
+            _jobApplicationRepository = new Lazy<IJobApplicationRepository>(() => new JobApplicationRepository(_appDbContext));
         }
 
         public ICustomerRepository CustomerRepository => _customerRepository.Value;
@@ -34,6 +36,9 @@ namespace DataAccess.Repositories.Classes
         public IConversationRepository ConversationRepository => _conversationRepository.Value;
         public IMessageRepository MessageRepository => _messageRepository.Value;
         public IJobRepository JobRepository => _jobRepository.Value;
+        public IJobApplicationRepository jobApplicationRepository => _jobApplicationRepository.Value;
+
+        public IJobApplicationRepository JobApplicationRepository => throw new NotImplementedException();
 
         public int SaveChanges()
         {

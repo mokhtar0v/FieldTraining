@@ -11,43 +11,36 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.Classes
 {
-    class CustomerService(IUnitOfWork _unitOfWork, IMapper _mapper) : ICustomerService
+    public class CustomerService(IUnitOfWork _unitOfWork, IMapper _mapper) : ICustomerService
     {
-        public IEnumerable<CustomerDTO> GetAllCustomers()
+        public IEnumerable<CustomerDTO> GetAllCustomers(string? CustomerSearchName)
         {
-            var customers = _unitOfWork.CustomerRepository.GetAll();
-            var customersToreturn = customers.Select(f => new CustomerDTO
-            {
-                ID = f.ID,
-                Name = f.Name,
-                Email = f.Email,
-                PhoneNum = f.PhoneNum,
-                DateOfBirth = f.DateOfBirth
-            });
+            IEnumerable<Customer> customers;
+            if (string.IsNullOrWhiteSpace(CustomerSearchName))
+                customers = _unitOfWork.CustomerRepository.GetAll();
+            else
+                customers = _unitOfWork.CustomerRepository.GetAll(e => e.Name.ToLower()
+                                                    .Contains(CustomerSearchName.ToLower()));
+            var customersToreturn = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
             return customersToreturn;
         }
         public CustomerDTO? GetCustomerByID(int id)
         {
             var customer = _unitOfWork.CustomerRepository.GetById(id);
-            return customer is null ? null : new CustomerDTO
-            {
-                ID = customer.ID,
-                Name = customer.Name,
-                Email = customer.Email,
-                PhoneNum = customer.PhoneNum,
-                DateOfBirth = customer.DateOfBirth
-            };
+            return customer is null ? null : _mapper.Map<CustomerDTO>(customer);
         }
-        public int AddCustomer(CreateCustomerDTO customerDTO)
+        public int AddCustomer(CreateCustomerDTO createCustomerDTO)
         {
-            var mappedCustomer = _mapper.Map<Customer>(customerDTO);
+            var mappedCustomer = _mapper.Map<Customer>(createCustomerDTO);
             _unitOfWork.CustomerRepository.Add(mappedCustomer);
             return _unitOfWork.SaveChanges();
         }
         public int UpdateCustomer(UpdateCustomerDTO updateCustomerDTO, int id)
         {
-            var mappedCustomer = _mapper.Map<Customer>(updateCustomerDTO);
-            _unitOfWork.CustomerRepository.Update(mappedCustomer);
+            var customer = _unitOfWork.CustomerRepository.GetById(id);
+            if (customer == null) return 0;
+            _mapper.Map(updateCustomerDTO, customer);
+            _unitOfWork.CustomerRepository.Update(customer);
             return _unitOfWork.SaveChanges();
         }
         public bool DeleteCustomer(int id)

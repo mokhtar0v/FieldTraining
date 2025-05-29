@@ -5,6 +5,9 @@ using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Classes;
 using DataAccess.Repositories.Interfaces;
+using BusinessLogic.Services;
+using BusinessLogic.Services.Interfaces;
+using BusinessLogic.Services.Classes;
 
 namespace HireSphere
 {
@@ -28,6 +31,16 @@ namespace HireSphere
 
             });
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+            builder.Services.AddScoped<IFreelancerService, FreelancerService>();
+            builder.Services.AddScoped<IFreelancerRepository, FreelancerRepository>();
+
+            builder.Services.AddAutoMapper(typeof(Program).Assembly); // Register AutoMapper with the current assembly
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
             #endregion
 
             var app = builder.Build();

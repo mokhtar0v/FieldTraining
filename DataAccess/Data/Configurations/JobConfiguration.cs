@@ -29,6 +29,9 @@ namespace DataAccess.Data.Configurations
                 .HasForeignKey(j => j.ID)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(j => j.Status)
+                .HasConversion<string>()
+                .IsRequired();
         }
     }
 }

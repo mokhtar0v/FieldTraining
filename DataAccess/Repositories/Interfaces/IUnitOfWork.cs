@@ -7,6 +7,7 @@
         IFreelancerRepository FreelancerRepository { get; }
         IJobRepository JobRepository { get; }
         IMessageRepository MessageRepository { get; }
+        IJobApplicationRepository JobApplicationRepository { get; }
 
         int SaveChanges();
     }

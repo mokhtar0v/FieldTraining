@@ -3,43 +3,26 @@ using BusinessLogic.DTOs;
 using BusinessLogic.Services.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.Classes
 {
     public class FreelancerService(IUnitOfWork _unitOfWork, IMapper _mapper) : IFreelancerService
     {
-        public IEnumerable<FreelancerDTO> GetAllFreelancers()
+        public IEnumerable<FreelancerDTO> GetAllFreelancers(string? FreelancerSearchName)
         {
-            var freelancers = _unitOfWork.FreelancerRepository.GetAll();
-            var freelancersToReturn = freelancers.Select(f => new FreelancerDTO
-            {
-                ID = f.ID,
-                Name = f.Name,
-                Email = f.Email,
-                PhoneNum = f.PhoneNum,
-                DateOfBirth = f.DateOfBirth,
-                Skills = f.Skills
-            });
+            IEnumerable<Freelancer> freelancers;
+            if (string.IsNullOrWhiteSpace(FreelancerSearchName))
+                freelancers = _unitOfWork.FreelancerRepository.GetAll();
+            else
+                freelancers = _unitOfWork.FreelancerRepository.GetAll(e => e.Name.ToLower()
+                                                    .Contains(FreelancerSearchName.ToLower()));
+            var freelancersToReturn = _mapper.Map<IEnumerable<FreelancerDTO>>(freelancers);
             return freelancersToReturn;
         }
         public FreelancerDTO? GetFreelancerByID(int id)
         {
             var freelancer = _unitOfWork.FreelancerRepository.GetById(id);
-            return freelancer is null ? null : new FreelancerDTO
-            {
-                ID = freelancer.ID,
-                Name = freelancer.Name,
-                Email = freelancer.Email,
-                PhoneNum = freelancer.PhoneNum,
-                DateOfBirth = freelancer.DateOfBirth,
-                Skills = freelancer.Skills
-            };
+            return freelancer is null ? null : _mapper.Map<FreelancerDTO>(freelancer);
         }
         public int AddFreelancer(CreateFreelancerDTO CreatefreelancerDTO)
         {
@@ -50,11 +33,13 @@ namespace BusinessLogic.Services.Classes
         }
         public int UpdateFreelancer(UpdateFreelancerDTO updateFreelancerDTO, int id)
         {
-            var mappedFreelancer = _mapper.Map<Freelancer>(updateFreelancerDTO);
-            _unitOfWork.FreelancerRepository.Update(mappedFreelancer);
+            var freelancer = _unitOfWork.FreelancerRepository.GetById(id);
+            if (freelancer == null) return 0;
+            _mapper.Map(updateFreelancerDTO, freelancer);
+            _unitOfWork.FreelancerRepository.Update(freelancer);
             return _unitOfWork.SaveChanges();
         }
-        public bool DeleteCustomer(int id)
+        public bool DeleteFreelancer(int id)
         {
             var freelancer = _unitOfWork.FreelancerRepository.GetById(id);
             if (freelancer is null)

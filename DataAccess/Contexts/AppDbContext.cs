@@ -15,11 +15,14 @@ namespace DataAccess.Contexts
         // Override OnModelCreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new FreelancerConfiguration());
             modelBuilder.ApplyConfiguration(new JobConfiguration());
-            modelBuilder.ApplyConfiguration(new MessageConfiguraion());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new ConversationConfiguration());
+            modelBuilder.ApplyConfiguration(new JobApplicationConfiguration());
         }
 
         // Your DbSets
@@ -28,7 +31,7 @@ namespace DataAccess.Contexts
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Job> Jobs { get; set; }
-
+        public DbSet<JobApplication> JobApplications { get; set; }
 
     }
 }

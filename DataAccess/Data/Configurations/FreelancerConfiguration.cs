@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Data.Configurations
 {
-    public class FreelancerConfiguration
+    public class FreelancerConfiguration : IEntityTypeConfiguration<Freelancer>
     {
-        public void configure(EntityTypeBuilder<Freelancer> builder)
+        public void Configure(EntityTypeBuilder<Freelancer> builder)
         {
             // Configure the primary key
             builder.HasKey(f => f.ID);
