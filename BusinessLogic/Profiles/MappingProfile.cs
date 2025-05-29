@@ -14,6 +14,7 @@ namespace BusinessLogic.Profiles
         public MappingProfile()
         {
             CreateMap<Customer, CustomerDTO>().ReverseMap();
+            //CreateMap<Customer, CustomerDTO>();
             CreateMap<Freelancer, FreelancerDTO>().ReverseMap();
             CreateMap<Job, JobDTO>().ReverseMap();
             CreateMap<CreateJobDTO, Job>();

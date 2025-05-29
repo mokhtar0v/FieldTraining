@@ -10,7 +10,8 @@ namespace DataAccess.Data.Configurations
         {
             // Configure the primary key
             builder.HasKey(c => c.ID);
-            builder.Property(c => c.ID).UseIdentityColumn(10,2);
+            builder.Property(c => c.ID).UseIdentityColumn(10,2)
+                .ValueGeneratedOnAdd();
             // Configure properties
             builder.Property(c => c.Name)
                 .IsRequired()

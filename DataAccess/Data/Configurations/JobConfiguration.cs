@@ -12,6 +12,9 @@ namespace DataAccess.Data.Configurations
         {
             builder.HasKey(j => j.ID);
 
+            builder.Property(j => j.ID)
+                .ValueGeneratedOnAdd();
+
             builder.Property(j => j.Title)
                 .IsRequired()
                 .HasMaxLength(100);

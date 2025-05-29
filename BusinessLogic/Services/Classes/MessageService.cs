@@ -6,7 +6,7 @@ using DataAccess.Repositories.Interfaces;
 
 namespace BusinessLogic.Services.Classes
 {
-    class MessageService(IUnitOfWork _unitOfWork, IMapper _mapper) : IMessageService
+    public class MessageService(IUnitOfWork _unitOfWork, IMapper _mapper) : IMessageService
     {
         public IEnumerable<MessageDTO> GetAllMessages(int conversationId)
         {

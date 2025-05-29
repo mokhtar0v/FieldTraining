@@ -9,6 +9,7 @@ namespace BusinessLogic.DTOs
 {
     public class UpdateJobDTO
     {
+        public int Id { get; set; } // Assuming Id is the primary key for the job
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
         public decimal Budget { get; set; }

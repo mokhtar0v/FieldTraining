@@ -2,7 +2,7 @@
 
 namespace BusinessLogic.Services.Interfaces
 {
-    internal interface IMessageService
+    public interface IMessageService
     {
         int AddMessage(CreateMessageDTO createMessageDTO);
         bool DeleteMessage(int id);

@@ -12,6 +12,9 @@ namespace DataAccess.Data.Configurations
         {
             builder.HasKey(a => a.ID);
 
+            builder.Property(a => a.ID)
+                   .ValueGeneratedOnAdd();
+
             builder.HasOne(a => a.Job)
                    .WithMany(j => j.JobApplications)
                    .HasForeignKey(a => a.JobId)

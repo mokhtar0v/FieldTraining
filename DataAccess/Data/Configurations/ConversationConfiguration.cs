@@ -12,7 +12,8 @@ namespace DataAccess.Data.Configurations
         {
             builder.HasKey(c => c.ID);
 
-
+            builder.Property(c => c.CustomerId)
+                .ValueGeneratedOnAdd();
             builder.HasOne(c => c.Customer)
                 .WithMany(cu => cu.Conversations)
                 .HasForeignKey(c => c.CustomerId)
