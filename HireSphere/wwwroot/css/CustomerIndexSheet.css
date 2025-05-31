@@ -1,0 +1,71 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;700&display=swap');
+
+:root {
+    --pop-font: 'Poppins', sans-serif;
+    --mon-font: 'Montserrat', sans-serif;
+}
+body {
+    font-family: var(--pop-font);
+    background-color: #f8f9fa;
+    padding-top: 70px;
+}
+
+h2, h3, h5, .navbar-brand {
+    font-family: var(--mon-font);
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.customer-header {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.customer-info p {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.jobs-section {
+    margin-bottom: 3rem;
+}
+
+.post-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.username {
+    font-weight: 600;
+}
+
+.job-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-closed {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.no-jobs {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}

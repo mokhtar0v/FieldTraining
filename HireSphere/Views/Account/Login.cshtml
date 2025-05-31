@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+@*     <link rel="stylesheet" href="css/all.css" /> *@ <!-- Font Awesome -->
+    <link href="~/css/LoginSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <i class="fa-regular fa-circle-user user-icon"></i>
+        <form asp-controller="Account" asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+            <div class="input-group">
+                <i class="fa-solid fa-envelope icon"></i>
+                <input type="email" name="Email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock-open icon"></i>
+                <input type="password" name="Password" placeholder="Password" required minlength="6" />
+            </div>
+            <button class="btn" type="submit">Login</button>
+            <a href="/Account/Register">Register</a>
+            <a href="/Account/ForgotPassword">Forget Password?</a>
+        </form>
+    </div>
+</body>
+</html>

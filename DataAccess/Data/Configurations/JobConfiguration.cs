@@ -21,15 +21,16 @@ namespace DataAccess.Data.Configurations
 
             builder.Property(j => j.Description)
                 .HasMaxLength(3000);
+
             builder.HasOne(j => j.Customer)
                 .WithMany(c => c.Jobs)
-                .HasForeignKey(j => j.ID)
+                .HasForeignKey(j => j.CustomerID)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(j => j.Freelancer)
                 .WithMany(f => f.Jobs)
-                .HasForeignKey(j => j.ID)
+                .HasForeignKey(j => j.FreelancerID)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
             builder.Property(j => j.Status)

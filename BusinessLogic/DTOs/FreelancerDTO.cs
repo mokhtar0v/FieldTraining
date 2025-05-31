@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace BusinessLogic.DTOs
         public int PhoneNum { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Skills { get; set; } = null!; // Non-nullable reference type, must be initialized
+        public virtual ICollection<Job> Jobs { get; set; } = new List<Job>();
     }
 }

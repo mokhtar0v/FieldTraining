@@ -9,7 +9,7 @@ namespace BusinessLogic.DTOs
 {
     public class UpdateCustomerDTO
     {
-        public int Id { get; set; } // Assuming Id is required for updating a customer
+        //public int Id { get; set; } // Assuming Id is required for updating a customer
         public string Name { get; set; } = null!; // Non-nullable reference type, must be initialized
         public string Email { get; set; } = null!;
         public int PhoneNum { get; set; }

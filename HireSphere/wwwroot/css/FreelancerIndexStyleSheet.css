@@ -1,0 +1,63 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;700&display=swap');
+
+:root {
+    --pop-font: "Poppins", sans-serif;
+    --mon-font: "Montserrat", sans-serif;
+}
+
+body {
+    font-family: var(--pop-font);
+    background-color: #f9f9f9;
+    margin: 0;
+    padding-top: 70px; /* for fixed navbar spacing */
+    color: #333;
+}
+
+.navbar-brand {
+    font-family: var(--mon-font);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.freelancer-header {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+    .freelancer-header h2 {
+        font-family: var(--mon-font);
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+.freelancer-info p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.freelancer-info i {
+    color: #28a745; /* bootstrap green for icons */
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .freelancer-header {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .freelancer-info p {
+        font-size: 1rem;
+    }
+}

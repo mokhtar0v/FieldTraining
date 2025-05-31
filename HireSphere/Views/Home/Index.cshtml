@@ -1,8 +1,95 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HireSphere</title>
+    <link rel="stylesheet" href="bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /*import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');*/
+        :root {
+            --pop-font: "Poppins", sans-serif;
+            --mon-font: "Montserrat", sans-serif;
+        }
+
+        body a, p, span {
+            font-family: var(--pop-font);
+        }
+
+        body h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: var(--mon-font);
+        }
+
+        body {
+            background-color: #f0f2f5;
+            padding-top: 60px;
+        }
+
+        .my-a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .post-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .post-header .username {
+            font-weight: 600;
+        }
+
+        .post-time {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .my-con img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid my-con">
+            <a class="navbar-brand fw-bolder" href="#">HireSphere</a>
+            <a href="profile.html"><img src="img/WhatsApp Image 2025-05-15 at 03.34.02_9fc19e91.jpg" alt=""></a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        @foreach (var job in Model)
+        {
+            <a href="chat.html?client_id=@job.ClientId" class="post-card my-a d-block text-decoration-none text-dark mb-3">
+                <div class="username fw-bold mb-2">@job.ClientName</div>
+                <div class="post-body">
+                    <p>@job.Description</p>
+                </div>
+            </a>
+        }
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

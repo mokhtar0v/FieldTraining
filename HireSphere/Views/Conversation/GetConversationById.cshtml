@@ -1,0 +1,54 @@
+﻿@using BusinessLogic.DTOs
+@model ConversationDTO
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css/chat.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- Chat Header -->
+    <div class="chat-header d-flex align-items-center p-3 border-bottom">
+        <h5 id="clientName" class="mb-0">@Model.CustomerId</h5>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="container d-flex flex-column chat-window p-3" id="chatBox" style="height: 60vh; overflow-y: auto;">
+        @if (Model.Messages != null && Model.Messages.Any())
+        {
+            foreach (var msg in Model.Messages)
+            {
+                var messageClass = msg.IsFromCustomer ? "message client" : "message dev";
+                <div class="@messageClass mb-2">
+                    <p class="mb-1">@msg.Content</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No messages yet.</p>
+        }
+    </div>
+
+    <!-- Message Input -->
+    <div class="message-input fixed-bottom bg-light p-3 border-top">
+        <div class="container">
+            <form id="chatForm" class="d-flex" method="post" action="@Url.Action("AddMessage", "Conversation", new { id = Model.ID })">
+                <input type="text" name="messageContent" class="form-control me-2" id="chatInput" placeholder="Type your message..." required />
+                <button class="btn btn-success" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

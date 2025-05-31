@@ -3,6 +3,7 @@ using AutoMapper;
 using BusinessLogic.DTOs;
 using DataAccess.Models;
 using BusinessLogic.Services.Interfaces;
+using System.Collections;
 namespace BusinessLogic.Services.Classes
 {
     public class JobService(IUnitOfWork _unitOfWork, IMapper _mapper) : IJobService
@@ -17,6 +18,16 @@ namespace BusinessLogic.Services.Classes
                                                     .Contains(JobSearchTitle.ToLower()));
             var jobsToReturn = _mapper.Map<IEnumerable<JobDTO>>(jobs);
             return jobsToReturn;
+        }
+        public IEnumerable<JobDTO> GetAllJobs()
+        {
+            var jobs = _unitOfWork.JobRepository.GetAll();
+            return _mapper.Map<IEnumerable<JobDTO>>(jobs);
+        }
+        public IEnumerable<JobDTO> GetJobsByCustomerId(int customerId)
+        {
+            var jobs = _unitOfWork.JobRepository.GetAll(e => e.CustomerID == customerId);
+            return _mapper.Map<IEnumerable<JobDTO>>(jobs);
         }
         public JobDTO? GetJobByID(int id)
         {

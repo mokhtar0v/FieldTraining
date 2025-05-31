@@ -11,5 +11,6 @@ namespace BusinessLogic.DTOs
         public int ID { get; set; }
         public int CustomerId { get; set; }
         public int FreelancerId { get; set; }
+        public List<MessageDTO> Messages { get; set; } = new();
     }
 }

@@ -1,0 +1,145 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", system-ui;
+    font-style: italic;
+    color: #5b5a5a;
+}
+
+body {
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 40%;
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(128, 128, 128, 0.4);
+    position: relative;
+    text-align: center;
+}
+
+.user-icon {
+    font-size: 80px;
+    color: #5b5a5a;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    position: relative;
+}
+
+    .input-group .icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #5b5a5a;
+        font-size: 18px;
+    }
+
+input {
+    width: 100%;
+    padding: 10px 10px 10px 45px;
+    font-size: 18px;
+    background-color: #f9f9f9;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    color: #333;
+    font-weight: 500;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.2);
+}
+
+button {
+    padding: 12px;
+    font-size: 20px;
+    background-color: white;
+    color: #5b5a5a;
+    font-weight: 800;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(128, 128, 128, 0.562);
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.buttonedit:hover {
+    background-color: #8bde88d2 !important;
+    color: white !important;
+}
+
+
+
+
+/* ✅ Responsive Styles */
+@media (max-width: 1024px) {
+    .container {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 80%;
+        padding: 25px 15px;
+    }
+
+    .user-icon {
+        font-size: 60px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 18px;
+    }
+
+    form > a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+    }
+
+    .user-icon {
+        font-size: 50px;
+    }
+
+    input {
+        font-size: 15px;
+        padding-left: 40px;
+    }
+
+    .input-group .icon {
+        font-size: 16px;
+        left: 12px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+
+    form > a {
+        font-size: 13px;
+    }
+}

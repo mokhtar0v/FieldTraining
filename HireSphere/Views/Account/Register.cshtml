@@ -1,0 +1,80 @@
+﻿@using HireSphere.ViewModels;
+@model HireSphere.ViewModels.RegisterViewModel
+@{
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration - HireSphere</title>
+	<link href="~/css/RegisterSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="All">
+        <div class="container">
+            <form asp-controller="Account" asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <h1>Registration</h1>
+
+                <!-- User Type Selection -->
+                <div class="usertype-group">
+                    <h3>I want to join as:</h3>
+                    <div class="radio-options">
+                        <label class="radio-option">
+                            <input type="radio" name="AccountType" value="Customer" required />
+                            <span>Customer</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="AccountType" value="Freelancer" required />
+                            <span>Freelancer</span>
+                        </label>
+                    </div>
+                    <div class="usertype-description">
+                        <strong>Customer:</strong> Hire talented freelancers for your projects<br>
+                        <strong>Freelancer:</strong> Offer your skills and find great work opportunities
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="Fullname">Full Name</label>
+                        <input type="text" id="Fullname" name="FullName" placeholder="Enter your full name" required />
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="Email">Email</label>
+                        <input type="email" id="Email" name="Email" placeholder="Enter your email" required />
+                    </div>
+                    <div class="input-group">
+                        <label for="Phone">Phone Number</label>
+                        <input type="tel" id="Phone" name="PhoneNumber" placeholder="Enter your phone number" required />
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="Password">Password</label>
+                        <input type="password" id="Password" name="Password" placeholder="Enter your password" required minlength="6" />
+                    </div>
+                    <div class="input-group">
+                        <label for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm your password" required minlength="6" />
+                    </div>
+                </div>
+
+                <button type="submit">Create Account</button>
+
+                <div class="login-link">
+                    Already have an account? <a href="/Account/Login">Sign In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

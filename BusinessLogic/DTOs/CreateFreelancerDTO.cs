@@ -11,12 +11,9 @@ namespace BusinessLogic.DTOs
     {
         [Required(ErrorMessage = "Name Is Required")]
         public string Name { get; set; } = null!;
-        [Required(ErrorMessage = "Code Is Required")]
-        public int ID { get; set; }
-
         public string? Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int PhoneNum { get; set; }
-        public string Skills { get; set; } = null!; // Non-nullable reference type, must be initialized
+        //public string Skills { get; set; } = null!; // Non-nullable reference type, must be initialized
     }
 }

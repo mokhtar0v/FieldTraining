@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.DTOs;
 using BusinessLogic.Services.Interfaces;
+using Castle.Core.Resource;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 
@@ -48,8 +49,9 @@ namespace BusinessLogic.Services.Classes
             }
             else
             {
-                _unitOfWork.FreelancerRepository.Remove(freelancer);
-                return _unitOfWork.SaveChanges() > 0; // Return true if deletion was successful
+                freelancer.IsDeleted = true;
+                _unitOfWork.FreelancerRepository.Update(freelancer);
+                return _unitOfWork.SaveChanges() > 0 ? true : false;
             }
         }
     }

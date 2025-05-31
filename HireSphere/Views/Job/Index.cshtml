@@ -1,0 +1,59 @@
+﻿@using BusinessLogic.DTOs
+@model IEnumerable<JobDTO>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HireSphere</title>
+    <link rel="stylesheet" href="~/bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <link rel="stylesheet" href="~/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/JobIndexStyleSheet.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid my-con">
+            <a class="navbar-brand fw-bolder" href="#">HireSphere</a>
+            <a href="profile.html"><img src="img/WhatsApp Image 2025-05-15 at 03.34.02_9fc19e91.jpg" alt=""></a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+
+        @foreach (var job in Model)
+        {
+            <div class="post-card">
+                <div class="d-flex justify-content-between align-items-center post-header mb-2">
+                    <div class="d-flex align-items-center">
+                        <a href="@Url.Action("Client", "Client", new { id = job.CustomerId })">
+                            <img src="~/img/WhatsApp Image 2025-05-15 at 03.34.02_9fc19e91.jpg" alt="Client Avatar" />
+                        </a>
+                        <div class="ms-2">
+                            <a class="my-a" href="@Url.Action("Client", "Client", new { id = job.CustomerId })">
+                                <div class="username">@job.CustomerName</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body mb-3">
+                    <p>@job.Description</p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <script src="~/bootstrap-5.3.5-dist/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

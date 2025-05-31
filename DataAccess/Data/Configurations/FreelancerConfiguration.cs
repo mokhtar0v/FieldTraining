@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,8 +31,8 @@ namespace DataAccess.Data.Configurations
             builder.Property(f => f.IsDeleted)
                 .HasDefaultValue(false);
 
-            builder.Property(f => f.Skills)
-                .HasColumnType("varchar(200)");
+            //builder.Property(f => f.Skills)
+            //    .HasColumnType("varchar(200)");
         }
     }
 }

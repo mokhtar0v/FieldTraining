@@ -52,8 +52,9 @@ namespace BusinessLogic.Services.Classes
             }
             else
             {
-                _unitOfWork.CustomerRepository.Remove(customer);
-                return _unitOfWork.SaveChanges() > 0; // Return true if deletion was successful
+                customer.IsDeleted = true;
+                _unitOfWork.CustomerRepository.Update(customer);
+                return _unitOfWork.SaveChanges() > 0 ? true : false;
             }
         }
     }

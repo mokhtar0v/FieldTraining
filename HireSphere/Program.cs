@@ -1,15 +1,17 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Classes;
 using DataAccess.Repositories.Interfaces;
-using BusinessLogic.Services;
 using BusinessLogic.Services.Interfaces;
 using BusinessLogic.Services.Classes;
-using Microsoft.OpenApi.Models;
 using BusinessLogic.Profiles;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using DataAccess.Models;
 
 namespace HireSphere
 {
@@ -19,54 +21,52 @@ namespace HireSphere
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            #region Add services to the container (DI Container)
-
+            // Add services to the container
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
+            builder.Services.AddRazorPages();
+
+            // DbContext with Lazy Loading
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
                 options.UseLazyLoadingProxies();
             });
 
+            // Repositories and Services
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
-
             builder.Services.AddScoped<IFreelancerService, FreelancerService>();
             builder.Services.AddScoped<IFreelancerRepository, FreelancerRepository>();
-
             builder.Services.AddScoped<IJobService, JobService>();
             builder.Services.AddScoped<IJobRepository, JobRepository>();
-
             builder.Services.AddScoped<IMessageRepository, MessageRepository>();
             builder.Services.AddScoped<IMessageService, MessageService>();
-
             builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
             builder.Services.AddScoped<IConversationServices, ConversationServices>();
-
-            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // AutoMapper
+            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            //builder.Services.ConfigureApplicationCookie(config =>
+            //{
+            //    config.LoginPath = "/Account/Login";
+            //});
+
+            // JSON config
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "HireSphere API",
-                    Version = "v1"
-                });
-            });
-
+            // CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -77,24 +77,24 @@ namespace HireSphere
                 });
             });
 
-            // Commented out authentication and authorization for now
-            /*
-            builder.Services.AddAuthentication("Cookies")
-                .AddCookie("Cookies", options =>
-                {
-                    options.LoginPath = "/Account/Login";
-                    options.AccessDeniedPath = "/Account/AccessDenied";
-                });
-
-            builder.Services.AddAuthorization();
-            */
-
-            #endregion
+            // Authentication - Cookie + Google
+            //builder.Services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            //})
+            //.AddCookie()
+            //.AddGoogle(options =>
+            //{
+            //    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+            //    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+            //    options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+            //    options.ClaimActions.MapJsonKey("urn:google:locale", "locale", "string");
+            //});
 
             var app = builder.Build();
 
-            #region Configure the HTTP request pipeline.
-
+            // Middleware pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -106,21 +106,18 @@ namespace HireSphere
 
             app.UseRouting();
 
-            // Commented out authentication and authorization middleware for now
-            /*
+            app.UseCors("AllowAll");
+
             app.UseAuthentication();
             app.UseAuthorization();
-            */
-
-            app.UseCors("AllowAll");
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Customer}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{Id?}");
+
+            app.MapRazorPages();
 
             app.Run();
-
-            #endregion
         }
     }
 }
